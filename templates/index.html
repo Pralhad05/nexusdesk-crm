@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusDesk - Support Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fadeInUp 0.4s ease-out forwards; }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col font-sans">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo -->
+                <a href="/dashboard" class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center shadow-md">
+                        <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <span class="text-xl font-extrabold text-slate-800 tracking-tight">Nexus<span class="text-indigo-600">Desk</span></span>
+                </a>
+
+                <!-- Desktop Right Side -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="/dashboard" class="text-slate-600 hover:text-indigo-600 font-medium text-sm px-3 py-2 rounded-md transition-colors">Dashboard</a>
+                    <a href="/create" class="bg-indigo-600 text-white px-5 py-2.5 rounded-lg hover:bg-indigo-700 font-semibold text-sm flex items-center gap-2 shadow-sm hover:shadow-md transition-all">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        New Ticket
+                    </a>
+                    <button onclick="localStorage.removeItem('token'); window.location.href='/login';" class="text-red-500 hover:text-red-700 font-medium text-sm ml-2 px-3 py-2">Logout</button>
+                </div>
+
+                <!-- Mobile Hamburger Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg text-slate-600 hover:bg-slate-100">
+                    <svg id="menu-open-icon" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="md:hidden hidden border-t border-slate-200 bg-white">
+            <div class="px-4 py-3 space-y-2">
+                <a href="/dashboard" class="block px-3 py-2 rounded-md text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 font-medium">Dashboard</a>
+                <a href="/create" class="block w-full text-center bg-indigo-600 text-white px-5 py-2.5 rounded-lg hover:bg-indigo-700 font-semibold text-sm">New Ticket</a>
+                <button onclick="localStorage.removeItem('token'); window.location.href='/login';" class="block w-full text-center text-red-500 hover:text-red-700 font-medium text-sm py-2">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full flex-1">
+        <div class="mb-8 animate-fade-in-up">
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Dashboard</h1>
+            <p class="text-slate-500 mt-1 text-sm sm:text-base">Track, manage, and resolve customer support tickets.</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+            <div class="animate-fade-in-up delay-100 bg-white rounded-2xl p-5 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-3">
+                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Total</p>
+                    <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    </div>
+                </div>
+                <p id="stat-total" class="text-3xl font-extrabold text-slate-800">-</p>
+            </div>
+            <div class="animate-fade-in-up delay-200 bg-gradient-to-br from-emerald-50 to-white rounded-2xl p-5 border border-emerald-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-3">
+                    <p class="text-sm font-semibold text-emerald-600 uppercase tracking-wide">Open</p>
+                    <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                </div>
+                <p id="stat-open" class="text-3xl font-extrabold text-emerald-700">-</p>
+            </div>
+            <div class="animate-fade-in-up delay-200 bg-gradient-to-br from-amber-50 to-white rounded-2xl p-5 border border-amber-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-3">
+                    <p class="text-sm font-semibold text-amber-600 uppercase tracking-wide">In Progress</p>
+                    <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                </div>
+                <p id="stat-progress" class="text-3xl font-extrabold text-amber-700">-</p>
+            </div>
+            <div class="animate-fade-in-up delay-300 bg-white rounded-2xl p-5 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-3">
+                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Closed</p>
+                    <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                    </div>
+                </div>
+                <p id="stat-closed" class="text-3xl font-extrabold text-slate-800">-</p>
+            </div>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 sm:p-6 mb-8 animate-fade-in-up delay-300">
+            <div class="flex flex-col sm:flex-row gap-4">
+                <div class="relative flex-1">
+                    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search tickets..." class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none">
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button class="filter-btn px-5 py-3 text-sm font-semibold rounded-xl bg-indigo-600 text-white shadow-sm" data-status="">All</button>
+                    <button class="filter-btn px-5 py-3 text-sm font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-status="Open">Open</button>
+                    <button class="filter-btn px-5 py-3 text-sm font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-status="In Progress">Active</button>
+                    <button class="filter-btn px-5 py-3 text-sm font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors" data-status="Closed">Closed</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tickets Container -->
+        <div id="tickets-container" class="animate-fade-in-up delay-300">
+            <div class="flex justify-center py-16">
+                <div class="w-10 h-10 border-4 border-slate-200 border-t-indigo-600 rounded-full animate-spin"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <p class="text-center text-sm text-slate-400">&copy; 2024 NexusDesk. Built with FastAPI & Tailwind CSS.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. AUTH CHECK (Must be at the very top!)
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+        }
+
+        // 2. HELPER FUNCTION FOR AUTH HEADERS
+        function getHeaders() {
+            return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+        }
+
+        // --- MOBILE MENU TOGGLE ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const openIcon = document.getElementById('menu-open-icon');
+        const closeIcon = document.getElementById('menu-close-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+
+        // --- API LOGIC ---
+        const API_BASE = '/api/tickets';
+        let currentStatus = '';
+        let searchTimeout;
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        // 3. STATS FETCH WITH AUTH HEADERS
+        async function loadStats() {
+            try {
+                const res = await fetch(`${API_BASE}/stats`, { headers: getHeaders() });
+                if (res.status === 401) { window.location.href = '/login'; return; }
+                const stats = await res.json();
+                document.getElementById('stat-total').textContent = stats.total;
+                document.getElementById('stat-open').textContent = stats.open;
+                document.getElementById('stat-progress').textContent = stats.in_progress;
+                document.getElementById('stat-closed').textContent = stats.closed;
+            } catch (e) { console.error("Stats error", e); }
+        }
+
+        // 4. TICKETS FETCH WITH AUTH HEADERS
+        async function loadTickets() {
+            const search = document.getElementById('search-input').value;
+            let url = `${API_BASE}?`;
+            if (currentStatus) url += `status=${encodeURIComponent(currentStatus)}&`;
+            if (search) url += `search=${encodeURIComponent(search)}`;
+
+            try {
+                const res = await fetch(url, { headers: getHeaders() });
+                if (res.status === 401) { window.location.href = '/login'; return; }
+                const tickets = await res.json();
+                renderTickets(tickets);
+            } catch (e) {
+                document.getElementById('tickets-container').innerHTML = `<p class="text-center text-red-500 py-12">Failed to load tickets.</p>`;
+            }
+        }
+
+        function renderTickets(tickets) {
+            const container = document.getElementById('tickets-container');
+            if (tickets.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 text-slate-500 bg-white rounded-2xl border border-slate-100">
+                        <svg class="mx-auto h-16 w-16 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                        </svg>
+                        <p class="mt-4 text-xl font-bold text-slate-600">No tickets found</p>
+                        <p class="mt-1 text-sm">Adjust your filters or create a new ticket.</p>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = tickets.map((t, index) => {
+                let borderColor = 'border-l-slate-300';
+                let statusBg = 'bg-slate-100 text-slate-600';
+                if (t.status === 'Open') { borderColor = 'border-l-emerald-500'; statusBg = 'bg-emerald-50 text-emerald-700 border border-emerald-200'; }
+                if (t.status === 'In Progress') { borderColor = 'border-l-amber-500'; statusBg = 'bg-amber-50 text-amber-700 border border-amber-200'; }
+                if (t.status === 'Closed') { borderColor = 'border-l-slate-400'; statusBg = 'bg-slate-100 text-slate-500 border border-slate-200'; }
+
+                return `
+                <div class="bg-white border border-slate-100 border-l-4 ${borderColor} rounded-xl p-4 sm:p-5 mb-4 cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 ease-out group"
+                     style="animation: fadeInUp 0.3s ease-out ${index * 0.05}s both;"
+                     onclick="window.location.href='/tickets/${t.ticket_id}'">
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <span class="text-xs font-bold font-mono text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">${t.ticket_id}</span>
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold ${statusBg}">${t.status}</span>
+                            </div>
+                            <h3 class="text-slate-800 font-bold truncate group-hover:text-indigo-600 transition-colors">${t.subject}</h3>
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:gap-3 mt-2 text-sm text-slate-500">
+                                <span class="font-medium text-slate-700">${t.customer_name}</span>
+                                <span class="hidden sm:inline text-slate-300">•</span>
+                                <span>${formatDate(t.created_at)}</span>
+                            </div>
+                        </div>
+                        <svg class="w-5 h-5 text-slate-300 group-hover:text-indigo-500 flex-shrink-0 transition-colors hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // Event Listeners
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(loadTickets, 300);
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+                    b.classList.add('bg-slate-100', 'text-slate-600');
+                });
+                e.target.classList.remove('bg-slate-100', 'text-slate-600');
+                e.target.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+                currentStatus = e.target.dataset.status;
+                loadTickets();
+            });
+        });
+
+        // Initial Load
+        loadStats();
+        loadTickets();
+    </script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusDesk - Modern Support CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth floating animation */
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        
+        /* Background Orbs Movement */
+        @keyframes moveOrb1 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, -30px) scale(1.1); } }
+        @keyframes moveOrb2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-40px, 40px) scale(0.9); } }
+        .orb-1 { animation: moveOrb1 10s ease-in-out infinite; }
+        .orb-2 { animation: moveOrb2 12s ease-in-out infinite; }
+
+        /* Button Shine Effect */
+        .shine-button { position: relative; overflow: hidden; }
+        .shine-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(30deg) translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .shine-button:hover::after { transform: rotate(30deg) translateX(100%); }
+
+        /* Text Glow */
+        .text-glow { text-shadow: 0 0 100px rgba(99, 102, 241, 0.4); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-white/70 backdrop-blur-xl border-b border-slate-200/50 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="/" class="flex items-center gap-3 group">
+                    <div class="w-9 h-9 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-all">
+                        <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900">Nexus<span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Desk</span></span>
+                </a>
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="text-sm font-semibold text-slate-600 hover:text-indigo-600 hidden sm:block px-4 py-2 transition">Log in</a>
+                    <a href="/login" class="shine-button bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-indigo-500/30 transition-all">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-center overflow-hidden">
+        <!-- Dynamic Background Orbs -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 orb-1"></div>
+        <div class="absolute top-40 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 orb-2"></div>
+
+        <div class="relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-full text-sm font-semibold mb-8 shadow-sm">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                Multi-user ready & blazing fast
+            </div>
+            
+            <h1 class="text-5xl sm:text-7xl font-black leading-tight tracking-tight mb-6 text-glow">
+                Support tickets,<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">simplified.</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+                NexusDesk helps your team track, manage, and resolve customer issues seamlessly. Isolated dashboards, real-time updates, zero complexity.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/login" class="shine-button bg-slate-900 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-slate-800 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                    Start Free Today
+                </a>
+                <a href="#features" class="bg-white text-slate-800 px-8 py-4 rounded-xl text-lg font-bold border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all">
+                    See How it Works
+                </a>
+            </div>
+        </div>
+
+        <!-- Realistic App Mockup -->
+        <div class="mt-20 relative z-10 max-w-4xl mx-auto">
+            <div class="bg-slate-900 rounded-2xl shadow-2xl shadow-slate-900/50 p-2 float-anim border border-slate-700">
+                <!-- Fake Browser Chrome -->
+                <div class="bg-slate-800 rounded-t-xl h-10 flex items-center px-4 gap-2">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="flex-1 mx-4">
+                        <div class="bg-slate-700 rounded-md h-6 w-64 mx-auto flex items-center justify-center">
+                            <span class="text-xs text-slate-400 font-mono">app.nexusdesk.io/dashboard</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fake UI Content -->
+                <div class="bg-slate-50 p-6 rounded-b-xl h-64 sm:h-96 grid grid-cols-4 gap-4">
+                    <!-- Sidebar -->
+                    <div class="col-span-1 space-y-3 hidden sm:block">
+                        <div class="h-4 bg-indigo-200 rounded w-3/4"></div>
+                        <div class="h-4 bg-slate-200 rounded w-1/2"></div>
+                        <div class="h-4 bg-slate-200 rounded w-2/3"></div>
+                    </div>
+                    <!-- Main Content -->
+                    <div class="col-span-4 sm:col-span-3 space-y-4">
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="bg-white p-3 rounded-lg border border-slate-100 h-16 shadow-sm"></div>
+                            <div class="bg-white p-3 rounded-lg border border-slate-100 h-16 shadow-sm"></div>
+                            <div class="bg-white p-3 rounded-lg border border-slate-100 h-16 shadow-sm"></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-slate-100 h-24 shadow-sm"></div>
+                        <div class="bg-white p-4 rounded-lg border border-slate-100 h-24 shadow-sm"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Stats Bar -->
+    <section class="border-y border-slate-200 bg-white py-12">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <p class="text-3xl font-extrabold text-slate-900">10k+</p>
+                <p class="text-sm text-slate-500 mt-1 font-medium">Active Agents</p>
+            </div>
+            <div>
+                <p class="text-3xl font-extrabold text-slate-900">1.2M</p>
+                <p class="text-sm text-slate-500 mt-1 font-medium">Tickets Resolved</p>
+            </div>
+            <div>
+                <p class="text-3xl font-extrabold text-slate-900">99.9%</p>
+                <p class="text-sm text-slate-500 mt-1 font-medium">Uptime SLA</p>
+            </div>
+            <div>
+                <p class="text-3xl font-extrabold text-slate-900">&lt;2s</p>
+                <p class="text-sm text-slate-500 mt-1 font-medium">Avg Response</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-slate-50 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-indigo-600 font-bold text-sm uppercase tracking-widest mb-3">Capabilities</p>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mb-4">Built for real support teams</h2>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto">Everything you need to handle hundreds of tickets across multiple agents seamlessly.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="group bg-white p-8 rounded-2xl border border-slate-100 hover:border-indigo-200 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 transition-colors duration-300">
+                        <svg class="w-7 h-7 text-indigo-600 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Multi-Agent Isolation</h3>
+                    <p class="text-slate-500 leading-relaxed">Every agent logs into their own secure dashboard. Your tickets stay private until resolved.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="group bg-white p-8 rounded-2xl border border-slate-100 hover:border-emerald-200 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors duration-300">
+                        <svg class="w-7 h-7 text-emerald-600 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Lightning Fast</h3>
+                    <p class="text-slate-500 leading-relaxed">Built on modern async Python. Search, filter, and update tickets without page reloads.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="group bg-white p-8 rounded-2xl border border-slate-100 hover:border-amber-200 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-600 transition-colors duration-300">
+                        <svg class="w-7 h-7 text-amber-600 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Activity Tracking</h3>
+                    <p class="text-slate-500 leading-relaxed">Leave internal notes, change statuses, and keep a full history of ticket resolution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50">
+        <div class="max-w-4xl mx-auto text-center bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-12 sm:p-16 relative overflow-hidden shadow-2xl">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+            
+            <!-- Glow Effect -->
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-indigo-600 rounded-full filter blur-[100px] opacity-30"></div>
+            
+            <div class="relative z-10">
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-6 leading-tight">Ready to streamline your support?</h2>
+                <p class="text-slate-400 text-lg mb-10 max-w-xl mx-auto">Join thousands of teams using the platform built for speed and simplicity.</p>
+                <a href="/login" class="shine-button inline-block bg-indigo-600 text-white px-10 py-4 rounded-xl text-lg font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition-all transform hover:-translate-y-1">
+                    Create Your Account
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-white py-10 px-4">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-7 h-7 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-md flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
+                <span class="font-bold text-slate-700">NexusDesk</span>
+            </a>
+            <div class="flex gap-6 text-sm text-slate-500">
+                <a href="#" class="hover:text-indigo-600 transition">Privacy</a>
+                <a href="#" class="hover:text-indigo-600 transition">Terms</a>
+                <a href="#" class="hover:text-indigo-600 transition">Contact</a>
+            </div>
+            <p class="text-sm text-slate-400">&copy; 2024 NexusDesk.</p>
+        </div>
+    </footer>
+</body>
+</html>
