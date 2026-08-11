@@ -51,7 +51,14 @@ Prerequisites
 Python 3.11 or higher (3.14 is not recommended due to dependency compilation issues).
 Git
 Step-by-Step Execution
-# 1. Clone the repositorygit clone https://github.com/Pralhad05/nexusdesk-crm.gitcd nexusdesk-crm# 2. Create and activate virtual environmentpython -m venv venv# On Windows:.\venv\Scripts\activate# On Mac/Linux:source venv/bin/activate# 3. Install dependenciespip install -r requirements.txt# 4. Setup environment variablescp .env.example .env# (The default .env is configured for local SQLite)# 5. Run the applicationpython run.py
+# 1. Clone the repositorygit clone https://github.com/Pralhad05/nexusdesk-crm.gitcd nexusdesk-crm
+# 2. Create and activate virtual environmentpython -m venv venv
+# On Windows:.\venv\Scripts\activate
+# On Mac/Linux:source venv/bin/activate
+# 3. Install dependenciespip install -r requirements.txt
+# 4. Setup environment variablescp .env.example .env
+# (The default .env is configured for local SQLite)
+# 5. Run the applicationpython run.py
 The application will automatically create the support_crm.db file and the required tables on startup.
 Open http://localhost:8000 to view the landing page.
 
