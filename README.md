@@ -51,7 +51,8 @@ Prerequisites
 Python 3.11 or higher (3.14 is not recommended due to dependency compilation issues).
 Git
 Step-by-Step Execution
-# 1. Clone the repositorygit clone https://github.com/Pralhad05/nexusdesk-crm.gitcd nexusdesk-crm
+# 1. Clone the repositorygit clone https://github.com/Pralhad05/nexusdesk-crm
+cd nexusdesk-crm
 # 2. Create and activate virtual environmentpython -m venv venv
 # On Windows:.\venv\Scripts\activate
 # On Mac/Linux:source venv/bin/activate
